@@ -126,4 +126,3 @@ def gera_response(status, nome_do_conteudo, conteudo, mensagem=False):
     return Response (json.dumps(body), status=status, mimetype="application/json")
 
 
-app.run()
