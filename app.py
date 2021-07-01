@@ -1,21 +1,16 @@
 #!/usr/bin/env python
 from flask import Flask, Response, request
-from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
-import urllib.parse 
 import json
 
 
 
 # initialization
 app = Flask(__name__)
-#app.config['SECRET_KEY'] = 'supersecret'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://oliverleo@agora-vai:qwerT1234@agora-vai.mysql.database.azure.com/python-data"
-
-
-# extensions
 db = SQLAlchemy(app)
+
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,24 +22,17 @@ class Users(db.Model):
         return {"id":self.id, "nome":self.nome, "cidade":self.cidade, "idade":self.idade}
 
 
-_______________
-
-
 @app.route ("/", methods=['GET'])
 def main_page():
 
     return "olá"
 
-
-##############
 #Selecionar Tudo
-
 
 @app.route("/usuarios", methods=['GET'])
 #@cross_origins()
 def seleciona_usuarios():
     users_objeto =Users.query.all()
-
     users_json = [users.to_json() for users in users_objeto]
 
     return gera_response(200, "usuarios", users_json)
@@ -55,7 +43,6 @@ def seleciona_usuarios():
 def seleciona_usuario(id):
     users_objeto = Users.query.filter_by(id=id).first()
     users_json = users_objeto.to_json()
-
 
     return gera_response(200, "Usuario", users_json)
 
@@ -92,7 +79,7 @@ def atualiza_usuario(id):
         db.session.commit()
         return gera_response(200, "usuario", users_objeto.to_json(), "atualizado com sucesso")
     except Exception as e:
-        print(e)
+        print('Erro',e)
         return gera_response(400, "usuario",{},"erro ao atualizar")
 
 
@@ -110,7 +97,7 @@ def deleta_usuario(id):
         db.session.commit()
         return gera_response(200, "usuario", users_objeto.to_json(), "deletado com sucesso")
     except Exception as e:
-        print(e)
+        print('Erro',e)
         return gera_response(400, "usuario",{},"erro ao deletar")
 
 
@@ -125,4 +112,6 @@ def gera_response(status, nome_do_conteudo, conteudo, mensagem=False):
 
     return Response (json.dumps(body), status=status, mimetype="application/json")
 
+
+app.run()
 
