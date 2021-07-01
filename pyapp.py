@@ -27,6 +27,14 @@ class Users(db.Model):
         return {"id":self.id, "nome":self.nome, "cidade":self.cidade, "idade":self.idade}
 
 
+_______________
+
+
+@app.route ("/", methods=['GET'])
+def main_page():
+
+    return "olá"
+
 
 ##############
 #Selecionar Tudo
