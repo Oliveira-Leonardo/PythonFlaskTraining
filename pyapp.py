@@ -7,15 +7,11 @@ import json
 
 
 
-# Configure Database URI: 
-params = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=python-data.database.windows.net;DATABASE=python-data;UID=oliverleo;PWD=A1b02C13!")
-
-
 # initialization
 app = Flask(__name__)
 #app.config['SECRET_KEY'] = 'supersecret'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=%s" % params
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://oliverleo@agora-vai:qwerT1234@agora-vai.mysql.database.azure.com/python-data"
 
 
 # extensions
