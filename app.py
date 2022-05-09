@@ -8,7 +8,7 @@ import json
 # initialization
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://oliverleo@agora-vai:qwerT1234@agora-vai.mysql.database.azure.com/python-data"
+app.config['SQLALCHEMY_DATABASE_URI'] = "user@password"
 db = SQLAlchemy(app)
 
 
